@@ -1,15 +1,15 @@
 const express = require("express");
-const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const authRoutes = require("./routes/authRoutes");
+const taskRoutes = require("./routes/taskRoutes");
+
 const app = express();
-dotenv.config();
+app.use(bodyParser.json());
 
-app.use(express.json());
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
-// Rotas
-app.get("/", (req, res) => {
-  res.send("API is running...");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-// Porta
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

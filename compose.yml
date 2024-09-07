@@ -6,6 +6,10 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3001
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=example
+      - MYSQL_DATABASE=task_manager_db
     networks:
       - task-network
     depends_on:
@@ -32,6 +36,15 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - task-network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - task-network
+    
 
 volumes:
   db_data:
