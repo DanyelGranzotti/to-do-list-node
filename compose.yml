@@ -11,16 +11,6 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - task-network
-
-  frontend:
-    build: ./front-end
-    ports:
-      - "3000:3000"
-    environment:
-      - VITE_BACKEND_URL=http://backend:3001
-    networks:
-      - task-network
-
   adminer:
     image: adminer
     restart: always
@@ -45,6 +35,12 @@ services:
     depends_on:
       - db
     
+  frontend:
+    build: ./front-end
+    ports:
+      - "3000:3000"
+    networks:
+      - task-network
 
 volumes:
   db_data:
